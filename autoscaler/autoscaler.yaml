@@ -8,6 +8,7 @@ metadata:
   name: cluster-autoscaler
   namespace: kube-system
   annotations:
+    # aws_iam_role.eks_cluster_autoscaler.arn 
     eks.amazonaws.com/role-arn: arn:aws:iam::851725511781:role/eks-cluster-autoscaler
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -164,6 +165,7 @@ spec:
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
             - --expander=least-waste
+            # your cluster name
             - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/ducnv-eks-cluster
           volumeMounts:
             - name: ssl-certs
